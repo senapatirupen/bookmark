@@ -1,0 +1,37 @@
+<div class="container">
+    <h1>Search Browser Links</h1>
+    <form (ngSubmit)="searchLinks()" class="mb-3">
+      <div class="form-group">
+        <label for="searchQuery">Tags (space separated)</label>
+        <input
+          type="text"
+          id="searchQuery"
+          class="form-control"
+          [(ngModel)]="searchQuery"
+          name="searchQuery"
+          required
+        />
+      </div>
+      <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+    <table *ngIf="searchResults.length" class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Link</th>
+          <th>Tag IDs</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let link of searchResults">
+          <td>{{ link.id }}</td>
+          <td>{{ link.link }}</td>
+          <td>{{ link.tagIds.join(', ') }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="!searchResults.length && searchQuery" class="alert alert-warning">
+      No results found for the tags "{{ searchQuery }}".
+    </div>
+  </div>
+  
