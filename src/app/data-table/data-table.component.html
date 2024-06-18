@@ -1,0 +1,25 @@
+<div>
+    <input [(ngModel)]="searchText" placeholder="Search" />
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th (click)="sortData('name')">Name</th>
+        <th (click)="sortData('age')">Age</th>
+        <th (click)="sortData('email')">Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of getFilteredData()">
+        <td>{{item.name}}</td>
+        <td>{{item.age}}</td>
+        <td>{{item.email}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div>
+    <button (click)="previousPage()" [disabled]="currentPage === 0">Previous</button>
+    <span>{{currentPage + 1}} / {{totalPages}}</span>
+    <button (click)="nextPage()" [disabled]="currentPage + 1 === totalPages">Next</button>
+  </div>
+  
