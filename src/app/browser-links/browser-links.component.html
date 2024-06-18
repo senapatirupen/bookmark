@@ -1,0 +1,49 @@
+<div class="container">
+    <h1>Browser Links</h1>
+    <form (ngSubmit)="addBrowserLink()" class="mb-3">
+      <div class="form-group">
+        <label for="newLink">Link</label>
+        <input
+          type="text"
+          id="newLink"
+          class="form-control"
+          [(ngModel)]="newLink"
+          name="newLink"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="newTags">Tags (space separated)</label>
+        <input
+          type="text"
+          id="newTags"
+          class="form-control"
+          [(ngModel)]="newTags"
+          name="newTags"
+          required
+        />
+      </div>
+      <button type="submit" class="btn btn-primary">Add Link</button>
+    </form>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Link</th>
+          <th>Tag IDs</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let link of browserLinks">
+          <td>{{ link.id }}</td>
+          <td>{{ link.link }}</td>
+          <td>{{ link.tagIds.join(', ') }}</td>
+          <td>
+            <button class="btn btn-danger btn-sm" (click)="deleteBrowserLink(link.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
