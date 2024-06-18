@@ -1,0 +1,23 @@
+<div class="container">
+    <h1>Tags</h1>
+    <button class="btn btn-primary mb-3" (click)="addTag()">Add Tag</button>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Tags</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tag of tags">
+          <td>{{ tag.id }}</td>
+          <td>{{ tag.tags.join(', ') }}</td>
+          <td>
+            <button class="btn btn-danger btn-sm" (click)="deleteTag(tag.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
