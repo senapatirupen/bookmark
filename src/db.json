@@ -1,0 +1,14 @@
+{
+    "browserLinks": [
+      { "id": 1, "link": "link1", "tagIds": [101, 102] },
+      { "id": 2, "link": "link2", "tagIds": [101, 103] },
+      { "id": 3, "link": "link3", "tagIds": [102] }
+    ],
+    "tags": [
+      { "id": 101, "tags": ["desc1", "desc3", "ioioi"] },
+      { "id": 102, "tags": ["desc1", "ferr"] },
+      { "id": 103, "tags": ["desc1", "tytyt"] },
+      { "id": 104, "tags": ["asdf"] }
+    ]
+  }
+  
