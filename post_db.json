@@ -1,0 +1,36 @@
+{
+  "posts": [
+    {
+      "title": "jira task",
+      "content": "need to add jira task",
+      "id": 101
+    },
+    {
+      "title": "Batch2 migration",
+      "content": "Batch 2 API migration",
+      "id": 102
+    }
+  ],
+  "comments": [
+    {
+      "postId": 101,
+      "text": "Need to remove the double quotes",
+      "id": 103
+    },
+    {
+      "postId": 101,
+      "text": "* need to add swagger definitions",
+      "id": 104
+    },
+    {
+      "postId": 102,
+      "text": "need to remove the state",
+      "id": 105
+    },
+    {
+      "postId": 102,
+      "text": "find me",
+      "id": 106
+    }
+  ]
+}
