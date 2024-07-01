@@ -1,0 +1,20 @@
+{
+    "products": [
+      { "id": 1, "name": "Product 1", "version": "1.0.0", "description": "Product One" },
+      { "id": 2, "name": "Product 2", "version": "2.0.1", "description": "Product Two" }
+    ],
+    "apis": [
+      { "id": 1, "productId": 1, "name": "API 1", "version": "1.0.0", "description": "API One" },
+      { "id": 2, "productId": 1, "name": "API 2", "version": "2.0.0", "description": "API Two" },
+      { "id": 3, "productId": 2, "name": "API 3", "version": "1.0.0", "description": "API Three" },
+      { "id": 4, "productId": 2, "name": "API 4", "version": "1.0.0", "description": "API Four" }
+    ],
+    "endpoints": [
+      { "id": 1, "apiId": 1, "name": "Endpoint 1", "url": "/get/data", "method": "GET", "description": "Details about Endpoint 1" },
+      { "id": 2, "apiId": 1, "name": "Endpoint 2", "url": "/add/data", "method": "POST", "description": "Details about Endpoint 2" },
+      { "id": 3, "apiId": 2, "name": "Endpoint 3", "url": "/update/data", "method": "PUT", "description": "Details about Endpoint 3" },
+      { "id": 4, "apiId": 3, "name": "Endpoint 4", "url": "/get/data", "method": "GET", "description": "Details about Endpoint 4" },
+      { "id": 5, "apiId": 4, "name": "Endpoint 5", "url": "/delete/data", "method": "DELETE", "description": "Details about Endpoint 5" }
+    ]
+  }
+  
