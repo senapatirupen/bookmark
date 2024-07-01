@@ -1,0 +1,48 @@
+<div class="container mt-3">
+    <button class="btn btn-primary mb-3" (click)="showAddPostForm = !showAddPostForm">{{ showAddPostForm ? 'Hide Form' :
+        'Add Post' }}</button>
+    <div *ngIf="showAddPostForm">
+        <form (ngSubmit)="onSubmitPost()" #postForm="ngForm">
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" class="form-control" name="title" [(ngModel)]="newPost.title" required>
+            </div>
+            <div class="form-group">
+                <label>Content</label>
+                <textarea class="form-control" name="content" [(ngModel)]="newPost.content" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-success">{{ editingPost ? 'Update' : 'Add' }} Post</button>
+        </form>
+    </div>
+    <input type="text" class="form-control mb-3" placeholder="Search posts" [(ngModel)]="searchTerm"
+        (input)="searchPosts()">
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let post of paginatedPosts">
+                <td>{{post.id}}</td>
+                <td><a [routerLink]="['/post', post.id]">{{post.title}}</a></td>
+                <td>
+                    <button class="btn btn-warning" (click)="editPost(post)">Edit</button>
+                    <button class="btn btn-danger" (click)="deletePost(post.id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <nav>
+        <ul class="pagination">
+            <li class="page-item" [class.disabled]="currentPage === 1" (click)="prevPage()">
+                <a class="page-link">Previous</a>
+            </li>
+            <li class="page-item" [class.disabled]="currentPage === totalPages" (click)="nextPage()">
+                <a class="page-link">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>
