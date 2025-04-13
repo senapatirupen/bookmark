@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Local Bootstrap Setup</title>
+
+    <!-- Link Bootstrap CSS from resources folder -->
+    <link rel="stylesheet" href="resources/bootstrap-5.3.5-dist/css/bootstrap.min.css">
+
+    <!-- Link Bootstrap Icons (optional) -->
+    <link rel="stylesheet" href="resources/icons/bootstrap-icons.css">
+    <style>
+        .tag {
+            display: inline-block;
+            background-color: #e7f1ff;
+            color: #0d6efd;
+            padding: 4px 8px;
+            margin: 2px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        .endpoint-table {
+            display: none;
+            margin-top: 1rem;
+        }
+
+        .copy-btn {
+            border: none;
+            background: none;
+            cursor: pointer;
+            color: #0d6efd;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header class="border-bottom lh-1 py-3">
+            <div class="row flex-nowrap justify-content-between align-items-center">
+                <div class="col-4 pt-1">
+                    <a class="link-secondary" href="#">MST</a>
+                </div>
+                <div class="col-4 text-center">
+                    <a class="blog-header-logo text-body-emphasis text-decoration-none" href="#">Mortgages</a>
+                </div>
+                <div class="col-4 d-flex justify-content-end align-items-center">
+                </div>
+            </div>
+        </header>
+
+        <div class="nav-scroller py-1 mb-3 border-bottom">
+            <nav class="nav nav-underline justify-content-between">
+                <a class="nav-item nav-link link-body-emphasis active" href="#">API</a>
+                <a class="nav-item nav-link link-body-emphasis" href="#">Service</a>
+                <a class="nav-item nav-link link-body-emphasis" href="#">Collections</a>
+            </nav>
+        </div>
+    </div>
+    <main class="container">
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <input id="searchInput" type="text" class="form-control"
+                    placeholder="Search by name, title, date or tag...">
+            </div>
+            <div class="col-md-4">
+                <button onclick="filterBlogs()" class="btn btn-primary w-100">Search</button>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Blog Section -->
+            <div class="col-md-8" id="blogList">
+                <!-- Sample Blog -->
+                <div class="card mb-4 blog-entry" data-name="mark" data-title="sample blog post" data-date="2021-01-01"
+                    data-tags="tech,html">
+                    <div class="card-body">
+                        <h4 class="card-title">Sample Blog Post</h4>
+                        <h6 class="card-subtitle mb-2 text-muted">by Mark | Jan 1, 2021</h6>
+                        <p class="card-text">An introduction to HTML blog layout using Bootstrap.</p>
+                        <div class="tags">
+                            <span class="tag">tech</span><span class="tag">html</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4 blog-entry" data-name="jacob" data-title="another blog post"
+                    data-date="2020-12-23" data-tags="design,ui">
+                    <div class="card-body">
+                        <h4 class="card-title">Another Blog Post</h4>
+                        <h6 class="card-subtitle mb-2 text-muted">by Jacob | Dec 23, 2020</h6>
+                        <p class="card-text">Talking design systems and user interfaces.</p>
+                        <div class="tags">
+                            <span class="tag">design</span><span class="tag">ui</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4 blog-entry" data-name="chris" data-title="new feature" data-date="2020-12-14"
+                    data-tags="feature,update">
+                    <div class="card-body">
+                        <h4 class="card-title">New Feature</h4>
+                        <h6 class="card-subtitle mb-2 text-muted">by Chris | Dec 14, 2020</h6>
+                        <p class="card-text">Rolling out a new update with cool features.</p>
+                        <div class="tags">
+                            <span class="tag">feature</span><span class="tag">update</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Tag Sidebar -->
+            <div class="col-md-4">
+                <div class="p-4 mb-3 bg-light rounded">
+                    <h5>Tags</h5>
+                    <div id="allTags"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div class="container py-4">
+        <h2 class="mb-4">📦 API Directory</h2>
+        <!-- Search Field -->
+        <div class="mb-3">
+            <input id="apiSearch" type="text" class="form-control"
+                placeholder="Search APIs by name, version, link, or description...">
+        </div>
+        <!-- API Table -->
+        <table class="table table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th>Name</th>
+                    <th>Version</th>
+                    <th>Link</th>
+                    <th>Description</th>
+                    <th>Endpoints</th>
+                </tr>
+            </thead>
+            <tbody id="apiTableBody">
+                <!-- Rows from JSON -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function filterBlogs() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            document.querySelectorAll('.blog-entry').forEach(blog => {
+                const name = blog.dataset.name;
+                const title = blog.dataset.title;
+                const date = blog.dataset.date;
+                const tags = blog.dataset.tags;
+                const match = name.includes(query) || title.includes(query) || date.includes(query) || tags.includes(query);
+                blog.style.display = match ? 'block' : 'none';
+            });
+        }
+
+        function collectTags() {
+            const tagSet = new Set();
+            document.querySelectorAll('.blog-entry').forEach(blog => {
+                blog.dataset.tags.split(',').forEach(tag => tagSet.add(tag.trim()));
+            });
+
+            const container = document.getElementById('allTags');
+            tagSet.forEach(tag => {
+                const tagEl = document.createElement('span');
+                tagEl.className = 'tag';
+                tagEl.textContent = tag;
+                tagEl.onclick = () => {
+                    document.getElementById('searchInput').value = tag;
+                    filterBlogs();
+                };
+                container.appendChild(tagEl);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', collectTags);
+
+
+
+        async function fetchAPIData() {
+            // Simulate external file fetch
+            return [
+                {
+                    "name": "User Service",
+                    "version": "v1",
+                    "link": "https://api.example.com/user",
+                    "description": "Handles user authentication and profile",
+                    "endpoints": [
+                        { "uri": "/login", "type": "POST", "description": "User login" },
+                        { "uri": "/register", "type": "POST", "description": "User registration" },
+                        { "uri": "/profile", "type": "GET", "description": "Get user profile" }
+                    ]
+                },
+                {
+                    "name": "Order Service",
+                    "version": "v2",
+                    "link": "https://api.example.com/order",
+                    "description": "Manages order placement and tracking",
+                    "endpoints": [
+                        { "uri": "/create", "type": "POST", "description": "Create new order" },
+                        { "uri": "/status", "type": "GET", "description": "Get order status" },
+                        { "uri": "/cancel", "type": "POST", "description": "Cancel an order" }
+                    ]
+                }
+            ];
+        }
+
+        let apiData = [];
+
+        function renderTable(data) {
+            const tbody = document.getElementById("apiTableBody");
+            tbody.innerHTML = "";
+            data.forEach((api, index) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+          <td>${api.name}</td>
+          <td>${api.version}</td>
+          <td><a href="${api.link}" target="_blank">${api.link}</a></td>
+          <td>${api.description}</td>
+          <td><button class="btn btn-sm btn-outline-primary" onclick="toggleEndpoints(${index})">View Endpoints</button></td>
+        `;
+                tbody.appendChild(row);
+
+                const endpointRow = document.createElement("tr");
+                endpointRow.classList.add("endpoint-table");
+                endpointRow.id = `endpoint-${index}`;
+                endpointRow.innerHTML = `
+          <td colspan="5">
+            <table class="table table-sm table-hover">
+              <thead class="table-secondary">
+                <tr>
+                  <th>URI</th>
+                  <th>Type</th>
+                  <th>Description</th>
+                  <th>Copy</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${api.endpoints.map(ep => `
+                  <tr>
+                    <td>${ep.uri}</td>
+                    <td>${ep.type}</td>
+                    <td>${ep.description}</td>
+                    <td><button class="copy-btn" onclick="copyToClipboard('${ep.uri}')"><i class="bi bi-clipboard"></i></button></td>
+                  </tr>`).join('')}
+              </tbody>
+            </table>
+          </td>
+        `;
+                tbody.appendChild(endpointRow);
+            });
+        }
+
+        function toggleEndpoints(index) {
+            const el = document.getElementById(`endpoint-${index}`);
+            el.style.display = el.style.display === "table-row" ? "none" : "table-row";
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert(`Copied to clipboard: ${text}`);
+            });
+        }
+
+        function filterTable() {
+            const query = document.getElementById('apiSearch').value.toLowerCase();
+            const filtered = apiData.filter(api =>
+                api.name.toLowerCase().includes(query) ||
+                api.version.toLowerCase().includes(query) ||
+                api.link.toLowerCase().includes(query) ||
+                api.description.toLowerCase().includes(query)
+            );
+            renderTable(filtered);
+        }
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            apiData = await fetchAPIData();
+            renderTable(apiData);
+            document.getElementById("apiSearch").addEventListener("input", filterTable);
+        });
+    </script>
+    <!-- Bootstrap JS (bundle includes Popper.js) -->
+    <script src="resources/bootstrap-5.3.5-dist/js/bootstrap.bundle.min.js"></script>
+</body>
+<footer class="container">
+    <p class="float-end"><a href="#">Back to top</a></p>
+    <p>&copy; 2025 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+</html>
